@@ -2,12 +2,16 @@
 
 #include <stdint.h>
 
-#define VBSPHEADER (('P'<<24)+('S'<<16)+('B'<<8)+'V')
+enum BSPConstants {
+	// NOTE TODO FIXME: This assumes little endian!
+	VBSPHEADER = ('P' << 24) + ('S' << 16) + ('B' << 8) + 'V',
+	MINBSPVERSION = 19,
+	BSPVERSION = 20,
+	HEADER_LUMPS = 64
+};
 
-#define MINBSPVERSION 19
-#define BSPVERSION 20
-
-enum {
+// This probably doesn't need to be here, but it might serve as useful documentation.
+enum LumpType {
 	LUMP_ENTITIES = 0,
 	LUMP_PLANES = 1,
 	LUMP_TEXDATA = 2,
@@ -79,8 +83,6 @@ struct Lump {
 	int32_t version;
 	char fourCC[4];
 };
-
-#define HEADER_LUMPS 64
 
 struct BSPHeader {
 	int32_t ident;

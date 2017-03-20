@@ -41,7 +41,7 @@ static void dumpLumpData(FILE *f, size_t length) {
 	size_t remaining = length;
 	size_t nread = 0;
 	do {
-		nread = fread(buf, 1, size_min(remaining, sizeof(buf)), f);
+		nread = fread(buf, 1, sizeof(buf), f);
 		remaining -= nread;
 
 		if (fwrite(buf, 1, nread, stdout) != nread) {
