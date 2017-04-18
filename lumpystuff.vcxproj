@@ -241,8 +241,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="compat-headers\stdlib.h" />
+    <ClInclude Include="compat-headers\stdnoreturn.h" />
     <ClInclude Include="compat-headers\unistd.h" />
     <ClInclude Include="src\bsp.h" />
+    <ClInclude Include="src\endian.h" />
     <ClInclude Include="src\uchar.h" />
     <ClInclude Include="src\util.h" />
   </ItemGroup>

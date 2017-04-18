@@ -30,5 +30,11 @@
     <ClInclude Include="compat-headers\unistd.h">
       <Filter>Compatibility Headers</Filter>
     </ClInclude>
+    <ClInclude Include="compat-headers\stdnoreturn.h">
+      <Filter>Compatibility Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\endian.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
