@@ -102,7 +102,7 @@ static void dumpLumpData(FILE *f, size_t length) {
 	size_t nleft = length;
 	do {
 		nleft -= nread = fread(buf, 1,
-			nleft < sizeof(buf) ? nleft : sizeof buf, f);
+				nleft < sizeof(buf) ? nleft : sizeof buf, f);
 		if (fwrite(buf, 1, nread, stdout) != nread) {
 			fuputs(U("Couldn't write to stdout!\n"), stderr);
 			fclose(f);
