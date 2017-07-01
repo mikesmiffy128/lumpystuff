@@ -8,7 +8,7 @@
 
 enum {
 	MINBSPVERSION = 19,
-	BSPVERSION = 20,
+	BSPVERSION = 21,
 	HEADER_LUMPS = 64
 };
 

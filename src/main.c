@@ -83,9 +83,14 @@ static void readBSPHeader(FILE *f, struct BSPHeader *header) {
 		exit(1);
 	}
 	if (LESwap32(header->ident) != VBSPHEADER || LESwap32(header->version) <
-			MINBSPVERSION || LESwap32(header->version) > BSPVERSION) {
+			MINBSPVERSION) {
 		fuputs(U("Unsupported BSP header!\n"), stderr);
 		exit(1);
+	}
+	// Allow more recent versions, but warn the user that there might be issues.
+	if (LESwap32(header->version) > BSPVERSION) {
+		fuputs(U("Warning! BSP header is newer than expected! You may run into"
+				"problems!\n", stderr);
 	}
 }
 
