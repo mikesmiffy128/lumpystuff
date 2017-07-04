@@ -90,7 +90,7 @@ static void readBSPHeader(FILE *f, struct BSPHeader *header) {
 	// Allow more recent versions, but warn the user that there might be issues.
 	if (LESwap32(header->version) > BSPVERSION) {
 		fuputs(U("Warning! BSP header is newer than expected! You may run into"
-				"problems!\n", stderr);
+				"problems!\n"), stderr);
 	}
 }
 

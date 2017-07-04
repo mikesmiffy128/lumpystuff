@@ -31,7 +31,7 @@ static inline int32_t LESwap32(int32_t i) {
 	}
 	else {
 		#if defined(__GNUC__) || defined(__clang__)
-			return __builtin_bswap32(le);
+			return __builtin_bswap32(i);
 		#else
 			return ((i >> 24) & 0xff)	   | // 3 -> 0
 				   ((i <<  8) & 0xff0000)  | // 1 -> 2
