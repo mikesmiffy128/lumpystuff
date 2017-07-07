@@ -10,7 +10,7 @@ lumpystuff is a simple command line tool which can dump lump data from Source
 Engine BSP and LMP files.
 
 ## Why?
-I'm currently working on a _secret project_ which should be out soon™.
+I'm currently working on a _secret project_ which should be out soonâ„¢.
 
 ## How?
 The help text pretty much tells you everything:
