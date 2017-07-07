@@ -8,10 +8,14 @@ CC_FLAGS_Release := -O3 -DNDEBUG
 CC_FLAGS_64bit := -m64
 CC_FLAGS_32bit := -m32
 LD_FLAGS := -fpie
+ifeq ($(OS)/$(CC),Windows_NT/gcc)
+# Fix wmain entry point with MinGW.
+LD_FLAGS += -municode
+endif
 LD_FLAGS_Debug :=
 LD_FLAGS_Release :=
-LD_FLAGS_64bit :=
-LD_FLAGS_32bit :=
+LD_FLAGS_64bit := -m64
+LD_FLAGS_32bit := -m32
 
 DEFAULT_CONFIG      := Release
 DEFAULT_USE_MSBUILD := 1
