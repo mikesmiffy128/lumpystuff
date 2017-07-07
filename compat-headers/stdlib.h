@@ -1,10 +1,12 @@
 #pragma once
 
-#if defined(_WIN32) && !defined(__GNUC__) && !defined(__clang__)
+#ifdef _MSC_VER
 	#include <../ucrt/stdlib.h>
+#else
+	#include_next <stdlib.h>
+#endif
+#ifdef _WIN32
 	// You have got to be kidding me.
 	#undef min
 	#undef max
-#else
-	#include_next <stdlib.h>
 #endif
