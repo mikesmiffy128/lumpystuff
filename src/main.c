@@ -82,7 +82,9 @@ static void readBSPHeader(FILE *f, struct BSPHeader *header) {
 		fuputs(U("Could not read BSP header!\n"), stderr);
 		exit(1);
 	}
-	if (LESwap32(header->ident) != VBSPHEADER || LESwap32(header->version) <
+	// Note: not swapping header->ident because VBSPHEADER should always be
+	// endian-independent.
+	if (header->ident != VBSPHEADER || LESwap32(header->version) <
 			MINBSPVERSION) {
 		fuputs(U("Unsupported BSP header!\n"), stderr);
 		exit(1);
