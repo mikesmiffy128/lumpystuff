@@ -37,7 +37,8 @@ part of an automated process; as such, not much effort was put into making it
 user-friendly.
 
 ## Building
-If you want to use this, you should be able to do simply by building the
-included Visual Studio project. This currently targets Visual Studio 2015 with
-the `v140_xp` toolset. It should be simple enough to build on other platforms
-using a Makefile, but that isn't currently implemented.
+There are currently two ways to build this tool: using Visual Studio or using
+the included GNU Makefile with `make`, `gmake`, `mingw32-make` or whatever it's
+called. On Windows, the Makefile will default to simply calling MSBuild, but
+this can be overridden by specifying the option `USE_MSBUILD=0`. Make sure that
+your `CC` variable is set to either `gcc` or `clang`.
