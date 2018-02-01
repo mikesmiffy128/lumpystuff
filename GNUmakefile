@@ -26,10 +26,14 @@ ifeq ($(OS),Windows_NT)
     BIN_SUFFIX := .exe
 endif
 
-
 ifeq ($(CONFIG),)
     CONFIG := $(DEFAULT_CONFIG)
 endif
+
+ifeq ($(filter $(CONFIG),Debug Release),)
+$(error "CONFIG must be one of: Debug, Release")
+endif
+
 ifeq ($(OS),Windows_NT)
     ifeq ($(USE_MSBUILD),)
         # TODO: Try to find MSBUILD on the PATH and only use it if it's there.
@@ -75,11 +79,11 @@ define DIRRULE
 # Param: arch
 mkdirs_$1:
 ifeq ($(OS),Windows_NT)
-	-cmd /c md $(foreach file,$(SOURCES),build\int\$(CONFIG)\$1\$(subst /,\,$(file))\..)
-	-cmd /c md build\$(CONFIG)\$1
+	-@cmd /c md $(foreach file,$(SOURCES),build\int\$(CONFIG)\$1\$(subst /,\,$(file))\..)
+	-@cmd /c md build\$(CONFIG)\$1
 else
-	mkdir -p cmd /c md build/int/$(CONFIG)/$1
-	mkdir -p cmd /c md build/$(CONFIG)/$1
+	@mkdir -p $(foreach file,$(SOURCES),build/int/$(CONFIG)/$1/$(dir $(file)))
+	@mkdir -p build/$(CONFIG)/$1
 endif
 .PHONY: mkdirs_$1
 endef
@@ -87,14 +91,14 @@ endef
 define CCRULE
 # Params: arch, file
 build/int/$(CONFIG)/$1/$(2:.c=$(OBJ_SUFFIX)): $2
-	$(CC) $(CC_FLAGS) $(CC_FLAGS_$(CONFIG)) $(CC_FLAGS_$1) -MMD -MP -o build/int/$(CONFIG)/$1/$(2:.c=$(OBJ_SUFFIX)) -c $2
+	@$(CC) $(CC_FLAGS) $(CC_FLAGS_$(CONFIG)) $(CC_FLAGS_$1) -MMD -MP -o build/int/$(CONFIG)/$1/$(2:.c=$(OBJ_SUFFIX)) -c $2
 -include build/int/$(CONFIG)/$1/$(2:.c=.d)
 endef
 
 define LDRULE
 # Param: arch
 build/$(CONFIG)/$1/lumpystuff$(BIN_SUFFIX): $(foreach file,$(SOURCES),build/int/$(CONFIG)/$1/$(file:.c=$(OBJ_SUFFIX)))
-	$(CC) $(LD_FLAGS) $(LD_FLAGS_$(CONFIG)) $(LD_FLAGS_$1) $(foreach file,$(SOURCES),build/int/$(CONFIG)/$1/$(file:.c=$(OBJ_SUFFIX))) -o build/$(CONFIG)/$1/lumpystuff$(BIN_SUFFIX)
+	@$(CC) $(LD_FLAGS) $(LD_FLAGS_$(CONFIG)) $(LD_FLAGS_$1) $(foreach file,$(SOURCES),build/int/$(CONFIG)/$1/$(file:.c=$(OBJ_SUFFIX))) -o build/$(CONFIG)/$1/lumpystuff$(BIN_SUFFIX)
 $1: mkdirs_$1 build/$(CONFIG)/$1/lumpystuff$(BIN_SUFFIX)
 endef
 

@@ -24,9 +24,13 @@ enum Endian {
 // Converts between little-endian and the machine's endian (no-op on most PCs).
 static inline int32_t LESwap32(int32_t i) {
 // Constant comparison
-#pragma warning(push, 0)
+#ifdef _WIN32
+	#pragma warning(push, 0)
+#endif
 	if (MACHINE_ENDIAN == LITTLE_ENDIAN) {
-#pragma warning(pop)
+#ifdef _WIN32
+	#pragma warning(pop)
+#endif
 		return i;
 	}
 	else {

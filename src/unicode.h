@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdio.h>
-#include <wchar.h>
 
 #include "util.h"
 
@@ -10,6 +9,8 @@
 // has to use UTF-16.
 
 #ifdef _WIN32
+	#include <wchar.h>
+
 	#define U(str) L(str)
 	#define UFUNC(name) CAT1(w, name)
 
@@ -23,6 +24,8 @@
 
 	typedef wchar_t uchar;
 #else
+	#include <string.h>
+
 	#define U(str) str
 	#define UFUNC(name) name
 
